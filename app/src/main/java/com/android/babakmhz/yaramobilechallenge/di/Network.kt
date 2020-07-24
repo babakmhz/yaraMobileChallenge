@@ -2,7 +2,7 @@ package com.android.babakmhz.yaramobilechallenge.di
 
 import com.android.babakmhz.yaramobilechallenge.utils.BASE_URL
 import com.android.babakmhz.yaramobilechallenge.utils.TIME_OUT
-import com.android.babakmhz.yaramobilechallenge.data.ApiHelper
+import com.android.babakmhz.yaramobilechallenge.data.network.ApiHelper
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
