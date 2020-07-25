@@ -97,8 +97,8 @@ class DetailsFragment : Fragment(), KoinComponent {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getMovieInDetail()
         viewModel.movieInDetailWrapper.observe(viewLifecycleOwner, liveDataObserver)
+        viewModel.getMovieInDetail()
         tryAgain.setOnClickListener {
             viewModel.getMovieInDetail()
         }
