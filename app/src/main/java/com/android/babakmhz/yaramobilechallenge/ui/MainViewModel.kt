@@ -11,14 +11,11 @@ import com.android.babakmhz.yaramobilechallenge.data.model.Search
 import com.android.babakmhz.yaramobilechallenge.utils.AppLogger
 import com.android.babakmhz.yaramobilechallenge.utils.LiveDataWrapper
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 
 class MainViewModel(
-    mainDispatcher: CoroutineDispatcher,
+    mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
     private val mainUseCase: MainUseCase
 ) : ViewModel(), KoinComponent {
 
@@ -50,14 +47,14 @@ class MainViewModel(
                     _moviesWrapper.postValue(LiveDataWrapper.error(Exception()))
                 }
             } catch (e: Exception) {
-                AppLogger.i("Exception in getting movies: %s",e.toString())
+                AppLogger.i("Exception in getting movies: %s", e.toString())
                 _moviesWrapper.postValue(LiveDataWrapper.error(e))
             }
         }
     }
 
 
-    fun getMovieInDetail(imdbId: String) {
+    fun getMovieInDetail(imdbId: String = currentMovie.value?.imdbId!!) {
         _movieInDetailWrapper.value = LiveDataWrapper.loading()
         mUiScope.launch {
             try {
@@ -67,6 +64,7 @@ class MainViewModel(
                 } else
                     _movieInDetailWrapper.postValue(LiveDataWrapper.error(Exception()))
             } catch (e: Exception) {
+                AppLogger.e(e, "throwable")
                 _movieInDetailWrapper.postValue(LiveDataWrapper.error(e))
             }
         }
@@ -76,8 +74,8 @@ class MainViewModel(
         _currentFragment.value = fragment
     }
 
-    fun setCurrentMovie(movie: Search) {
-        _currentMovie.value = movie
+    fun setCurrentMovieInDetail(movie: MovieWithRatings) {
+        _movieInDetailWrapper.value = LiveDataWrapper.success(movie)
     }
 
     fun getCurrentFragment(): Fragment? {

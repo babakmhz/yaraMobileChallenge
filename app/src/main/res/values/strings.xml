@@ -2,5 +2,7 @@
     <string name="app_name">yaraMobile challenge</string>
     <string name="loading_movies">Loading movies...</string>
     <string name="error">Oops...Error occurred</string>
+    <string name="press_back_again">Press back again to exit</string>
+
     <string name="loading">Loading...</string>
 </resources>

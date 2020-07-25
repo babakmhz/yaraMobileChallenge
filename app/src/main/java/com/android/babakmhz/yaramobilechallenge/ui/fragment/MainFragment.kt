@@ -26,6 +26,8 @@ import java.util.*
 
 class MainFragment : Fragment(), KoinComponent, callBack {
 
+    private val detailsFragment: DetailsFragment by inject()
+
     companion object {
         fun newInstance() =
             MainFragment()
@@ -100,6 +102,6 @@ class MainFragment : Fragment(), KoinComponent, callBack {
     }
 
     override fun onItemClicked(movie: Search) {
-        viewModel.onMovieClicked(movie, DetailsFragment.newInstance())
+        viewModel.onMovieClicked(movie, detailsFragment)
     }
 }

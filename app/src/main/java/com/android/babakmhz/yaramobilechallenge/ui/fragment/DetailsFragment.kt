@@ -11,14 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.babakmhz.yaramobilechallenge.R
 import com.android.babakmhz.yaramobilechallenge.data.model.MovieWithRatings
+import com.android.babakmhz.yaramobilechallenge.data.model.Search
 import com.android.babakmhz.yaramobilechallenge.databinding.FragmentDetailsBinding
 import com.android.babakmhz.yaramobilechallenge.ui.MainUseCase
 import com.android.babakmhz.yaramobilechallenge.ui.MainViewModel
 import com.android.babakmhz.yaramobilechallenge.ui.ScoreRecyclerAdapter
+import com.android.babakmhz.yaramobilechallenge.utils.CommonUtils
 import com.android.babakmhz.yaramobilechallenge.utils.LiveDataWrapper
 import com.android.babakmhz.yaramobilechallenge.utils.MainViewModelFactory
 import kotlinx.android.synthetic.main.fragment_details.*
-import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -77,21 +78,29 @@ class DetailsFragment : Fragment(), KoinComponent {
                 if (it.response?.ratings?.isNotEmpty()!!)
                     recycler_score.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                recycler_items.adapter = ScoreRecyclerAdapter(
+                recycler_score.adapter = ScoreRecyclerAdapter(
                     context!!,
                     it.response.ratings
                 )
-
+                rating_.rating = CommonUtils.getRatingValue(it.response.movieDetails.imdbRating)
                 progressbar.visibility = View.GONE
                 text_loading_.visibility = View.GONE
+                poster.visibility = View.VISIBLE
+                details_container.visibility = View.VISIBLE
                 tryAgain.visibility = View.GONE
                 recycler_score.visibility = View.VISIBLE
             }
         }
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getMovieInDetail()
         viewModel.movieInDetailWrapper.observe(viewLifecycleOwner, liveDataObserver)
+        tryAgain.setOnClickListener {
+            viewModel.getMovieInDetail()
+        }
     }
 }

@@ -33,6 +33,7 @@
             android:saveEnabled="false"
             android:text="@{rating.value}"
             app:layout_constraintBottom_toBottomOf="@id/text_source"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/text_source"
             app:layout_constraintTop_toTopOf="@id/text_source"
             tools:text="80%" />

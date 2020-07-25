@@ -16,12 +16,13 @@ class MainUseCase : KoinComponent {
     private val db: MoviesDao by inject()
 
     suspend fun getMovies(): List<Search>? {
-        val response = apiService.getMovies()
-        if (response.search.isNotEmpty()) {
+         return try {
+            val response = apiService.getMovies()
             cacheMovies(response.search)
-            return response.search
+            response.search
+        } catch (e: java.lang.Exception) {
+            getAllMoviesFromDb()
         }
-        return getAllMoviesFromDb()
     }
 
 

@@ -5,7 +5,6 @@
     <data>
 
         <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.android.babakmhz.yaramobilechallenge.ui.MainViewModel" />
@@ -117,9 +116,10 @@
                     app:layout_constraintTop_toTopOf="@id/text_year" />
 
                 <RatingBar
-                    android:id="@+id/ratingBar"
+                    android:id="@+id/rating_"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:saveEnabled="false"
                     app:layout_constraintBottom_toBottomOf="@id/text_rating"
