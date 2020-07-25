@@ -78,6 +78,8 @@ dependencies {
     //LeakCanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
 
+    //Multidex
+    implementation "androidx.multidex:multidex:$multidex"
     // logger
     implementation "com.jakewharton.timber:timber:$timberVersion"
 

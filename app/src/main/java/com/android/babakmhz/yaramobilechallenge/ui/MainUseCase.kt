@@ -1,4 +1,4 @@
-package com.android.babakmhz.yaramobilechallenge
+package com.android.babakmhz.yaramobilechallenge.ui
 
 
 import com.android.babakmhz.yaramobilechallenge.data.db.MoviesDao
@@ -43,6 +43,7 @@ class MainUseCase : KoinComponent {
     }
 
     private suspend fun cacheMovieInDetail(deserializer: MovieDetailsSerializer): MovieWithRatings {
+        // TODO: 7/24/20 clean this via editing methods in model
         val movieDetails = MovieDetails(
             deserializer.title,
             deserializer.year,
@@ -64,8 +65,11 @@ class MainUseCase : KoinComponent {
             deserializer.dvd,
             deserializer.boxOffice,
             deserializer.production,
-            deserializer.website
+            deserializer.website,
+            deserializer.country
         )
+        db.insertMovieDetail(movieDetails)
+        db.insertRatings(deserializer.ratings)
         return MovieWithRatings(movieDetails, deserializer.ratings)
     }
 

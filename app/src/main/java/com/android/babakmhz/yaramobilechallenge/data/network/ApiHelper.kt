@@ -8,13 +8,13 @@ import retrofit2.http.Query
 interface ApiHelper {
 
 
-    @GET
+    @GET(".")
     suspend fun getMovies(
         @Query("apikey") apikey: String
         , @Query("s") search: String
     ): Movies
 
-    @GET
+    @GET(".")
     suspend fun getMovieDetails(
         @Query("apikey") apikey: String,
         @Query("i") imdbId: String

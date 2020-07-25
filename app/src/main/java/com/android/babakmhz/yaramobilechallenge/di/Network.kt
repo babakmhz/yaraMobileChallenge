@@ -3,6 +3,7 @@ package com.android.babakmhz.yaramobilechallenge.di
 import com.android.babakmhz.yaramobilechallenge.utils.BASE_URL
 import com.android.babakmhz.yaramobilechallenge.utils.TIME_OUT
 import com.android.babakmhz.yaramobilechallenge.data.network.ApiHelper
+import com.android.babakmhz.yaramobilechallenge.data.network.ApiService
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -22,6 +23,7 @@ val networkDependency = module {
             .readTimeout(TIME_OUT, TimeUnit.SECONDS)
             .addInterceptor(logging)
             .build()
+
         Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
@@ -30,3 +32,4 @@ val networkDependency = module {
     }
     factory { get<Retrofit>().create(ApiHelper::class.java) }
 }
+

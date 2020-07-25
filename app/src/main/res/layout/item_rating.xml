@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="rating"
+            type="com.android.babakmhz.yaramobilechallenge.data.model.Ratings" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            android:text='@{String.format("%s%s",rating.source," :")}'
+            android:textColor="#000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rotten Tomatoes: " />
+
+
+        <TextView
+            android:id="@+id/text_score"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:saveEnabled="false"
+            android:text="@{rating.value}"
+            app:layout_constraintBottom_toBottomOf="@id/text_source"
+            app:layout_constraintStart_toEndOf="@+id/text_source"
+            app:layout_constraintTop_toTopOf="@id/text_source"
+            tools:text="80%" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,12 +1,16 @@
 package com.android.babakmhz.yaramobilechallenge.utils
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.android.babakmhz.yaramobilechallenge.BuildConfig
+import com.android.babakmhz.yaramobilechallenge.di.appApiService
+import com.android.babakmhz.yaramobilechallenge.di.databaseDependency
 import com.android.babakmhz.yaramobilechallenge.di.networkDependency
+import com.android.babakmhz.yaramobilechallenge.di.useCaseDependency
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class MyApp : Application() {
+class MyApp : MultiDexApplication() {
+
     override fun onCreate() {
         super.onCreate()
 
@@ -17,7 +21,10 @@ class MyApp : Application() {
             androidContext(this@MyApp)
             modules(
                 listOf(
-                    networkDependency
+                    networkDependency,
+                    appApiService,
+                    databaseDependency,
+                    useCaseDependency
                 )
             )
         }

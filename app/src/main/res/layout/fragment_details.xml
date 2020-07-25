@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.android.babakmhz.yaramobilechallenge.ui.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eee">
+
+        <ImageView
+            android:id="@+id/poster"
+            imageUrl="@{viewModel.movieInDetailWrapper.response.movieDetails.poster}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="300dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/batman_sample" />
+
+        <View
+            android:id="@+id/view_dark_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:alpha="0.5"
+            android:background="@drawable/selector_view_darker_flat"
+            app:layout_constraintBottom_toBottomOf="@+id/poster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="150dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/poster"
+            app:layout_constraintEnd_toEndOf="@id/poster"
+            app:layout_constraintStart_toStartOf="@id/poster"
+            app:layout_constraintTop_toTopOf="@id/poster" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/details_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/rounded_view"
+            android:elevation="4dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewModel.movieInDetailWrapper.response.movieDetails.title}"
+                    android:textColor="#000"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Batman begins" />
+
+
+                <TextView
+                    android:id="@+id/text_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:text='@{String.format("%s%s","Year: ",viewModel.movieInDetailWrapper.response.movieDetails.year)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_title"
+                    app:layout_constraintTop_toBottomOf="@id/text_title"
+                    tools:text="year: 2005" />
+
+                <TextView
+                    android:id="@+id/text_released"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:text='@{String.format("%s%s","released: ",viewModel.movieInDetailWrapper.response.movieDetails.released)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_title"
+                    app:layout_constraintTop_toBottomOf="@id/text_year"
+                    tools:text="released: 2005" />
+
+                <TextView
+                    android:id="@+id/text_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="imdb rating: "
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_genre"
+                    app:layout_constraintTop_toBottomOf="@id/text_year"
+                    app:layout_constraintTop_toTopOf="@id/text_year" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:saveEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="@id/text_rating"
+                    app:layout_constraintStart_toEndOf="@+id/text_rating"
+                    app:layout_constraintTop_toTopOf="@id/text_rating"
+                    tools:rating="4.5" />
+
+                <TextView
+                    android:id="@+id/text_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:text='@{String.format("%s%s","Genre: ",viewModel.movieInDetailWrapper.response.movieDetails.genre)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintBottom_toBottomOf="@id/text_released"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_released"
+                    app:layout_constraintTop_toTopOf="@id/text_released"
+                    tools:text="Genre: Action, Crime, Fantasy" />
+
+                <TextView
+                    android:id="@+id/text_runtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.format("%s%s","Genre: ",viewModel.movieInDetailWrapper.response.movieDetails.runtime)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_released"
+                    app:layout_constraintTop_toBottomOf="@id/text_released"
+                    tools:text="Runtime 140 min" />
+
+                <TextView
+                    android:id="@+id/text_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.format("%s%s","Language: ",viewModel.movieInDetailWrapper.response.movieDetails.language)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_genre"
+                    app:layout_constraintTop_toBottomOf="@id/text_genre"
+                    tools:text="Language: english" />
+
+                <TextView
+                    android:id="@+id/text_imdbVotes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.format("%s%s","imdb votes: ",viewModel.movieInDetailWrapper.response.movieDetails.imdbVotes)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_language"
+                    app:layout_constraintTop_toBottomOf="@id/text_language"
+                    tools:text="imdb votes: 267,581" />
+
+                <TextView
+                    android:id="@+id/text_country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.format("%s%s","Country: ",viewModel.movieInDetailWrapper.response.movieDetails.country)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_runtime"
+                    app:layout_constraintTop_toBottomOf="@id/text_runtime"
+                    tools:text="Country: english" />
+
+                <TextView
+                    android:id="@+id/text_writer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingEnd="15dp"
+                    android:text='@{String.format("%s%s","Writer: ",viewModel.movieInDetailWrapper.response.movieDetails.writer)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_country"
+                    app:layout_constraintTop_toBottomOf="@id/text_country"
+                    tools:text="Writer: Bob Kane (Batman characters), Daniel Waters (story), Sam Hamm (story), Daniel Waters (screenplay) " />
+
+                <TextView
+                    android:id="@+id/text_actors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingEnd="15dp"
+                    android:text='@{String.format("%s%s","Actors: ",viewModel.movieInDetailWrapper.response.movieDetails.actors)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_writer"
+                    app:layout_constraintTop_toBottomOf="@id/text_writer"
+                    tools:text="Actors: Bob Kane (Batman characters), Daniel Waters (story), Sam Hamm (story), Daniel Waters (screenplay) " />
+
+                <TextView
+                    android:id="@+id/text_plot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingEnd="15dp"
+                    android:text='@{String.format("%s%s","Plot: ",viewModel.movieInDetailWrapper.response.movieDetails.plot)}'
+                    android:textColor="#000"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintStart_toStartOf="@id/text_actors"
+                    app:layout_constraintTop_toBottomOf="@id/text_actors"
+                    tools:text="Plot: Bob Kane (Batman characters), Daniel Waters (story), Sam Hamm (story), Daniel Waters (screenplay) " />
+
+                <TextView
+                    android:id="@+id/text_otherRatings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Other ratings:"
+                    android:textColor="#000"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/text_title"
+                    app:layout_constraintTop_toBottomOf="@id/text_plot" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_score"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/text_otherRatings"
+                    app:layout_constraintTop_toBottomOf="@id/text_otherRatings"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_rating" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/text_loading_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/loading"
+            android:textColor="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressbar" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/tryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Try again"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toTopOf="@id/text_loading_"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

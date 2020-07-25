@@ -18,6 +18,7 @@ data class MovieDetailsSerializer(
     @SerializedName("Poster") val poster: String,
     @SerializedName("Ratings") val ratings: List<Ratings>,
     @SerializedName("Metascore") val metaScore: String,
+    @SerializedName("country") val country: String,
     @SerializedName("imdbRating") val imdbRating: String,
     @SerializedName("imdbVotes") val imdbVotes: String,
     @SerializedName("imdbId") val imdbId: String,
@@ -50,8 +51,9 @@ data class MovieDetails(
     @ColumnInfo val dvd: String,
     @ColumnInfo val boxOffice: String,
     @ColumnInfo val production: String,
-    @ColumnInfo val website: String
-)
+    @ColumnInfo val website: String,
+    @ColumnInfo val country: String
+    )
 
 data class MovieWithRatings(
     @Embedded val movieDetails: MovieDetails,

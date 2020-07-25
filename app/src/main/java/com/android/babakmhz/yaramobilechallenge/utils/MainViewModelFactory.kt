@@ -2,8 +2,8 @@ package com.android.babakmhz.yaramobilechallenge.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.android.babakmhz.yaramobilechallenge.MainViewModel
-import com.android.babakmhz.yaramobilechallenge.MainUseCase
+import com.android.babakmhz.yaramobilechallenge.ui.MainViewModel
+import com.android.babakmhz.yaramobilechallenge.ui.MainUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 
 
